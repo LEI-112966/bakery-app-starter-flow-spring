@@ -1,3 +1,15 @@
+# Colaboradores
+
+Carlos Gonçalves 112966 
+
+Guilherme Alves 122661
+
+Diogo Figueira 122664
+
+Daniel Gutierrez 122694
+
+
+
 # ⚠️ This starter is not recommended ⚠️
 
 **This starter is not recommended for new Vaadin Flow applications. Instead, visit [start.vaadin.com](https://start.vaadin.com/) to configure and download a Vaadin project that reflects the current best practices.**
@@ -95,3 +107,4 @@ Pro components used in the starter are :
  - [Vaadin Confirm Dialog](https://vaadin.com/components/vaadin-confirm-dialog) 
 
  Also the tests are created using [Testbench](https://vaadin.com/testbench) library.
+
