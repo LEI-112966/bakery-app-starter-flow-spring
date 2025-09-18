@@ -43,6 +43,14 @@ public class OrderService implements CrudService<Order> {
 	private static final Set<OrderState> notAvailableStates = Collections.unmodifiableSet(
 			EnumSet.complementOf(EnumSet.of(OrderState.DELIVERED, OrderState.READY, OrderState.CANCELLED)));
 
+	/**
+	 * Saves an order, creating a new one if id is null, or updating an existing one.
+	 *
+	 * @param currentUser the user performing the operation
+	 * @param id          the order id (nullable)
+	 * @param orderFiller a consumer to fill order details
+	 * @return the saved order
+	 */
 	@Transactional(rollbackOn = Exception.class)
 	public Order saveOrder(User currentUser, Long id, BiConsumer<User, Order> orderFiller) {
 		Order order;
@@ -55,17 +63,39 @@ public class OrderService implements CrudService<Order> {
 		return orderRepository.save(order);
 	}
 
+	/**
+	 * Saves the given order.
+	 *
+	 * @param order the order to save
+	 * @return the saved order
+	 */
 	@Transactional(rollbackOn = Exception.class)
 	public Order saveOrder(Order order) {
 		return orderRepository.save(order);
 	}
 
+	/**
+	 * Adds a comment to the order and saves it.
+	 *
+	 * @param currentUser the user adding the comment
+	 * @param order       the order to update
+	 * @param comment     the comment to add
+	 * @return the updated order
+	 */
 	@Transactional(rollbackOn = Exception.class)
 	public Order addComment(User currentUser, Order order, String comment) {
 		order.addHistoryItem(currentUser, comment);
 		return orderRepository.save(order);
 	}
 
+	/**
+	 * Finds orders matching the filter and/or after a given due date.
+	 *
+	 * @param optionalFilter    optional filter string
+	 * @param optionalFilterDate optional due date filter
+	 * @param pageable          pagination information
+	 * @return page of matching orders
+	 */
 	public Page<Order> findAnyMatchingAfterDueDate(Optional<String> optionalFilter,
 			Optional<LocalDate> optionalFilterDate, Pageable pageable) {
 		if (optionalFilter.isPresent() && !optionalFilter.get().isEmpty()) {
@@ -84,11 +114,23 @@ public class OrderService implements CrudService<Order> {
 		}
 	}
 	
+	/**
+	 * Finds all orders starting today or later.
+	 *
+	 * @return list of matching order summaries
+	 */
 	@Transactional
 	public List<OrderSummary> findAnyMatchingStartingToday() {
 		return orderRepository.findByDueDateGreaterThanEqual(LocalDate.now());
 	}
 
+	/**
+	 * Counts orders matching the filter and/or after a given due date.
+	 *
+	 * @param optionalFilter    optional filter string
+	 * @param optionalFilterDate optional due date filter
+	 * @return count of matching orders
+	 */
 	public long countAnyMatchingAfterDueDate(Optional<String> optionalFilter, Optional<LocalDate> optionalFilterDate) {
 		if (optionalFilter.isPresent() && optionalFilterDate.isPresent()) {
 			return orderRepository.countByCustomerFullNameContainingIgnoreCaseAndDueDateAfter(optionalFilter.get(),
@@ -102,6 +144,11 @@ public class OrderService implements CrudService<Order> {
 		}
 	}
 
+	/**
+	 * Returns delivery statistics for today and new orders.
+	 *
+	 * @return delivery statistics
+	 */
 	private DeliveryStats getDeliveryStats() {
 		DeliveryStats stats = new DeliveryStats();
 		LocalDate today = LocalDate.now();
@@ -116,6 +163,13 @@ public class OrderService implements CrudService<Order> {
 		return stats;
 	}
 
+	/**
+	 * Returns dashboard data for the given month and year.
+	 *
+	 * @param month the month
+	 * @param year  the year
+	 * @return dashboard data
+	 */
 	public DashboardData getDashboardData(int month, int year) {
 		DashboardData data = new DashboardData();
 		data.setDeliveryStats(getDeliveryStats());
@@ -149,16 +203,36 @@ public class OrderService implements CrudService<Order> {
 		return data;
 	}
 
+	/**
+	 * Returns a list of deliveries per day for the given month and year.
+	 *
+	 * @param month the month
+	 * @param year  the year
+	 * @return list of deliveries per day
+	 */
 	private List<Number> getDeliveriesPerDay(int month, int year) {
 		int daysInMonth = YearMonth.of(year, month).lengthOfMonth();
 		return flattenAndReplaceMissingWithNull(daysInMonth,
 				orderRepository.countPerDay(OrderState.DELIVERED, year, month));
 	}
 
+	/**
+	 * Returns a list of deliveries per month for the given year.
+	 *
+	 * @param year the year
+	 * @return list of deliveries per month
+	 */
 	private List<Number> getDeliveriesPerMonth(int year) {
 		return flattenAndReplaceMissingWithNull(12, orderRepository.countPerMonth(OrderState.DELIVERED, year));
 	}
 
+	/**
+	 * Flattens and fills missing values with null for chart data.
+	 *
+	 * @param length expected length of the result
+	 * @param list   source data
+	 * @return list of numbers with missing values replaced by null
+	 */
 	private List<Number> flattenAndReplaceMissingWithNull(int length, List<Object[]> list) {
 		List<Number> counts = new ArrayList<>();
 		for (int i = 0; i < length; i++) {
@@ -171,11 +245,22 @@ public class OrderService implements CrudService<Order> {
 		return counts;
 	}
 
+	/**
+	 * Returns the order repository instance.
+	 *
+	 * @return order repository
+	 */
 	@Override
 	public JpaRepository<Order, Long> getRepository() {
 		return orderRepository;
 	}
 
+	/**
+	 * Creates a new order for the current user with default due date and time.
+	 *
+	 * @param currentUser the user creating the order
+	 * @return new order instance
+	 */
 	@Override
 	@Transactional
 	public Order createNew(User currentUser) {

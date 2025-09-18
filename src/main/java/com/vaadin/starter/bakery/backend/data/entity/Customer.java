@@ -24,26 +24,50 @@ public class Customer extends AbstractEntity {
 	@Size(max = 255)
 	private String details;
 
+	/**
+	 * Returns the full name of the customer.
+	 * @return full name
+	 */
 	public String getFullName() {
 		return fullName;
 	}
 
+	/**
+	 * Sets the full name of the customer.
+	 * @param fullName full name to set
+	 */
 	public void setFullName(String fullName) {
 		this.fullName = fullName;
 	}
 
+	/**
+	 * Returns the phone number of the customer.
+	 * @return phone number
+	 */
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
 
+	/**
+	 * Sets the phone number of the customer.
+	 * @param phoneNumber phone number to set
+	 */
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
 
+	/**
+	 * Returns additional details about the customer.
+	 * @return details
+	 */
 	public String getDetails() {
 		return details;
 	}
 
+	/**
+	 * Sets additional details about the customer.
+	 * @param details details to set
+	 */
 	public void setDetails(String details) {
 		this.details = details;
 	}

@@ -23,6 +23,12 @@ public class UserService implements FilterableCrudService<User> {
 		this.userRepository = userRepository;
 	}
 
+	/**
+	 * Finds users matching the given filter or returns all users if no filter is provided.
+	 * @param filter optional filter string
+	 * @param pageable pagination information
+	 * @return page of matching users
+	 */
 	public Page<User> findAnyMatching(Optional<String> filter, Pageable pageable) {
 		if (filter.isPresent()) {
 			String repositoryFilter = "%" + filter.get() + "%";
@@ -34,6 +40,11 @@ public class UserService implements FilterableCrudService<User> {
 		}
 	}
 
+	/**
+	 * Counts users matching the given filter or returns total count if no filter is provided.
+	 * @param filter optional filter string
+	 * @return count of matching users
+	 */
 	@Override
 	public long countAnyMatching(Optional<String> filter) {
 		if (filter.isPresent()) {
@@ -45,6 +56,10 @@ public class UserService implements FilterableCrudService<User> {
 		}
 	}
 
+	/**
+	 * Returns the user repository instance.
+	 * @return user repository
+	 */
 	@Override
 	public UserRepository getRepository() {
 		return userRepository;

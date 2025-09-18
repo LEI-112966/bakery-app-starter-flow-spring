@@ -21,27 +21,52 @@ public class Product extends AbstractEntity {
 	@Max(value = 100000, message = "{bakery.price.limits}")
 	private Integer price;
 
+	/**
+	 * Returns the product name.
+	 * @return product name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the product name.
+	 * @param name product name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Returns the product price (real price * 100).
+	 * @return product price
+	 */
 	public Integer getPrice() {
 		return price;
 	}
 
+	/**
+	 * Sets the product price (real price * 100).
+	 * @param price product price
+	 */
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
 
+	/**
+	 * Returns the product name as a string.
+	 * @return product name
+	 */
 	@Override
 	public String toString() {
 		return name;
 	}
 
+	/**
+	 * Checks if this product is equal to another object.
+	 * @param o the other object
+	 * @return true if equal, false otherwise
+	 */
 	@Override
 	public boolean equals(Object o) {
 		if (this == o) {

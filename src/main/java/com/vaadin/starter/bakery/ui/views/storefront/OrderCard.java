@@ -15,16 +15,20 @@ import com.vaadin.starter.bakery.backend.data.entity.OrderItem;
 import com.vaadin.starter.bakery.backend.data.entity.OrderSummary;
 
 /**
- * Help class to get ready to use LitRenderer for displaying order card list on the Storefront and Dashboard grids.
- * Using LitRenderer instead of ComponentRenderer optimizes the CPU and memory consumption.
+ * Utility class for rendering order cards in the Storefront and Dashboard grids.
  * <p>
- * In addition, component includes an optional header above the order card. It is used
- * to visually separate orders into groups. Technically all order cards are
- * equivalent, but those that do have the header visible create a visual group
- * separation.
+ * Uses LitRenderer for efficient rendering and supports optional headers for visual grouping.
+ * </p>
+ *
+ * @author GitHub Copilot
  */
 public class OrderCard {
 
+	/**
+	 * Returns a LitRenderer template for displaying an order card.
+	 *
+	 * @return LitRenderer template
+	 */
 	public static LitRenderer<Order> getTemplate() {
 		return LitRenderer.of(
 				  "<order-card"
@@ -34,14 +38,24 @@ public class OrderCard {
 				+ "</order-card>");
 	}
 	
+	/**
+	 * Creates an OrderCard instance from an OrderSummary.
+	 *
+	 * @param order the order summary
+	 * @return OrderCard instance
+	 */
 	public static OrderCard create(OrderSummary order) {
 		return new OrderCard(order);
 	}
 
 	private boolean recent, inWeek;
-
 	private final OrderSummary order;
 	
+	/**
+	 * Constructs an OrderCard for the given order summary.
+	 *
+	 * @param order the order summary
+	 */
 	public OrderCard(OrderSummary order) {
 		this.order = order;
 		LocalDate now = LocalDate.now();

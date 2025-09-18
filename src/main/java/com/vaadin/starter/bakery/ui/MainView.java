@@ -46,6 +46,9 @@ public class MainView extends AppLayout {
 	private Tabs menu;
 	private static final String LOGOUT_SUCCESS_URL = "/" + BakeryConst.PAGE_ROOT;
 
+	/**
+	 * Initializes the main view layout, menu, and confirmation dialog.
+	 */
 	@PostConstruct
 	public void init() {
 		confirmDialog.setCancelable(true);

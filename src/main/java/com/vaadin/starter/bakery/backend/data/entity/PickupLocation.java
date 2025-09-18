@@ -13,10 +13,20 @@ public class PickupLocation extends AbstractEntity {
 	@Column(unique = true)
 	private String name;
 
+	/**
+	 * Returns the pickup location name.
+	 *
+	 * @return location name
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Sets the pickup location name.
+	 *
+	 * @param name location name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

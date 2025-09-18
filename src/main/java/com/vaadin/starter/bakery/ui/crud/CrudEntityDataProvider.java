@@ -22,26 +22,43 @@ public class CrudEntityDataProvider<T extends AbstractEntity> extends Filterable
 		setSortOrders();
 	}
 
+	/**
+	 * Sets the default sort orders for the data provider.
+	 */
 	private void setSortOrders() {
 		QuerySortOrderBuilder builder = new QuerySortOrderBuilder();
 		builder.thenAsc("id");
 		defaultSortOrders = builder.build();
 	}
 
+	/**
+	 * Fetches a page of entities from the backend using the given query and pageable.
+	 * @param query the query object
+	 * @param pageable the pageable object
+	 * @return a page of entities
+	 */
 	@Override
 	protected Page<T> fetchFromBackEnd(Query<T, String> query, Pageable pageable) {
 		return crudService.findAnyMatching(query.getFilter(), pageable);
 	}
 
+	/**
+	 * Returns the default sort orders for the data provider.
+	 * @return list of default sort orders
+	 */
 	@Override
 	protected List<QuerySortOrder> getDefaultSortOrders() {
 		return defaultSortOrders;
 	}
 
+	/**
+	 * Returns the total number of entities matching the query filter.
+	 * @param query the query object
+	 * @return total number of matching entities
+	 */
 	@Override
 	protected int sizeInBackEnd(Query<T, String> query) {
 		return (int) crudService.countAnyMatching(query.getFilter());
 	}
 
 }
-

@@ -7,12 +7,18 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * SecurityUtils takes care of all such static operations that have to do with
- * security and querying rights from different beans of the UI.
+ * Utility class for security-related static operations.
+ * <p>
+ * Provides methods for querying authentication and user details from the security context.
+ * </p>
  *
+ * @author GitHub Copilot
  */
 public final class SecurityUtils {
 
+	/**
+	 * Private constructor to prevent instantiation.
+	 */
 	private SecurityUtils() {
 		// Util methods only
 	}
@@ -45,6 +51,12 @@ public final class SecurityUtils {
 		return isUserLoggedIn(SecurityContextHolder.getContext().getAuthentication());
 	}
 
+	/**
+	 * Checks if the given authentication represents a logged-in user.
+	 *
+	 * @param authentication the authentication object
+	 * @return true if the user is logged in, false otherwise
+	 */
 	private static boolean isUserLoggedIn(Authentication authentication) {
 		return authentication != null
 			&& !(authentication instanceof AnonymousAuthenticationToken);

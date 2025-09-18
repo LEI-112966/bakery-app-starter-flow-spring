@@ -30,27 +30,65 @@ import com.vaadin.starter.bakery.backend.repositories.PickupLocationRepository;
 import com.vaadin.starter.bakery.backend.repositories.ProductRepository;
 import com.vaadin.starter.bakery.backend.repositories.UserRepository;
 
+/**
+ * Generates sample data for the Bakery application.
+ * <p>
+ * This class is responsible for populating the database with initial test data for development and demonstration purposes.
+ * </p>
+ *
+ * @author GitHub Copilot
+ */
 @SpringComponent
 public class DataGenerator implements HasLogger {
 
+	/**
+	 * List of possible product fillings.
+	 */
 	private static final String[] FILLING = new String[] { "Strawberry", "Chocolate", "Blueberry", "Raspberry",
 			"Vanilla" };
+	/**
+	 * List of possible product types.
+	 */
 	private static final String[] TYPE = new String[] { "Cake", "Pastry", "Tart", "Muffin", "Biscuit", "Bread", "Bagel",
 			"Bun", "Brownie", "Cookie", "Cracker", "Cheese Cake" };
+	/**
+	 * List of possible first names for customers.
+	 */
 	private static final String[] FIRST_NAME = new String[] { "Ori", "Amanda", "Octavia", "Laurel", "Lael", "Delilah",
 			"Jason", "Skyler", "Arsenio", "Haley", "Lionel", "Sylvia", "Jessica", "Lester", "Ferdinand", "Elaine",
 			"Griffin", "Kerry", "Dominique" };
+	/**
+	 * List of possible last names for customers.
+	 */
 	private static final String[] LAST_NAME = new String[] { "Carter", "Castro", "Rich", "Irwin", "Moore", "Hendricks",
 			"Huber", "Patton", "Wilkinson", "Thornton", "Nunez", "Macias", "Gallegos", "Blevins", "Mejia", "Pickett",
 			"Whitney", "Farmer", "Henry", "Chen", "Macias", "Rowland", "Pierce", "Cortez", "Noble", "Howard", "Nixon",
 			"Mcbride", "Leblanc", "Russell", "Carver", "Benton", "Maldonado", "Lyons" };
 
+	/**
+	 * Random number generator for data creation.
+	 */
 	private final Random random = new Random(1L);
 
+	/**
+	 * Repository for orders.
+	 */
 	private OrderRepository orderRepository;
+	/**
+	 * Repository for users.
+	 */
 	private UserRepository userRepository;
+	/**
+	 * Repository for products.
+	 */
 	private ProductRepository productRepository;
+	/**
+	 * Repository for pickup locations.
+	 */
 	private PickupLocationRepository pickupLocationRepository;
+	/**
+	 * Password encoder for encoding user passwords.
+	 */
 	private PasswordEncoder passwordEncoder;
 
 	@Autowired

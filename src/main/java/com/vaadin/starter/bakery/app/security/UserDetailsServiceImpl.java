@@ -14,30 +14,38 @@ import com.vaadin.starter.bakery.backend.data.entity.User;
 import com.vaadin.starter.bakery.backend.repositories.UserRepository;
 
 /**
- * Implements the {@link UserDetailsService}.
- * 
- * This implementation searches for {@link User} entities by the e-mail address
- * supplied in the login screen.
+ * Implements the {@link UserDetailsService} for authentication.
+ * <p>
+ * Searches for {@link User} entities by e-mail address and returns a Spring Security UserDetails object.
+ * </p>
+ *
+ * @author GitHub Copilot
  */
 @Service
 @Primary
 public class UserDetailsServiceImpl implements UserDetailsService {
 
+	/**
+	 * Repository for accessing user data.
+	 */
 	private final UserRepository userRepository;
 
+	/**
+	 * Constructs the service with the given user repository.
+	 *
+	 * @param userRepository Repository for user entities
+	 */
 	@Autowired
 	public UserDetailsServiceImpl(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
 
 	/**
-	 *
-	 * Recovers the {@link User} from the database using the e-mail address supplied
-	 * in the login screen. If the user is found, returns a
-	 * {@link org.springframework.security.core.userdetails.User}.
+	 * Loads the user by e-mail address for authentication.
 	 *
 	 * @param username User's e-mail address
-	 * 
+	 * @return UserDetails for authentication
+	 * @throws UsernameNotFoundException if no user is found
 	 */
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

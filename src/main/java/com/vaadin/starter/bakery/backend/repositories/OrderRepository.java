@@ -18,34 +18,98 @@ import com.vaadin.starter.bakery.backend.data.entity.OrderSummary;
 
 public interface OrderRepository extends JpaRepository<Order, Long> {
 
+	/**
+	 * Finds orders with due date after the specified date.
+	 *
+	 * @param filterDate the date to filter
+	 * @param pageable   pagination information
+	 * @return page of matching orders
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_BRIEF, type = EntityGraphType.LOAD)
 	Page<Order> findByDueDateAfter(LocalDate filterDate, Pageable pageable);
 
+	/**
+	 * Finds orders by customer name (case-insensitive).
+	 *
+	 * @param searchQuery the customer name filter
+	 * @param pageable    pagination information
+	 * @return page of matching orders
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_BRIEF, type = EntityGraphType.LOAD)
 	Page<Order> findByCustomerFullNameContainingIgnoreCase(String searchQuery, Pageable pageable);
 
+	/**
+	 * Finds orders by customer name and due date after the specified date.
+	 *
+	 * @param searchQuery the customer name filter
+	 * @param dueDate     the due date filter
+	 * @param pageable    pagination information
+	 * @return page of matching orders
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_BRIEF, type = EntityGraphType.LOAD)
 	Page<Order> findByCustomerFullNameContainingIgnoreCaseAndDueDateAfter(String searchQuery, LocalDate dueDate, Pageable pageable);
 
 	@Override
+	/**
+	 * Finds all orders.
+	 *
+	 * @return list of all orders
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_BRIEF, type = EntityGraphType.LOAD)
 	List<Order> findAll();
 
 	@Override
+	/**
+	 * Finds all orders with pagination.
+	 *
+	 * @param pageable pagination information
+	 * @return page of all orders
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_BRIEF, type = EntityGraphType.LOAD)
 	Page<Order> findAll(Pageable pageable);
 
+	/**
+	 * Finds order summaries with due date greater than or equal to the specified date.
+	 *
+	 * @param dueDate the due date filter
+	 * @return list of order summaries
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_BRIEF, type = EntityGraphType.LOAD)
 	List<OrderSummary> findByDueDateGreaterThanEqual(LocalDate dueDate);
 
 	@Override
+	/**
+	 * Finds an order by its ID.
+	 *
+	 * @param id the order ID
+	 * @return optional order
+	 */
 	@EntityGraph(value = Order.ENTITY_GRAPTH_FULL, type = EntityGraphType.LOAD)
 	Optional<Order> findById(Long id);
 
+	/**
+	 * Counts orders with due date after the specified date.
+	 *
+	 * @param dueDate the due date filter
+	 * @return count of matching orders
+	 */
 	long countByDueDateAfter(LocalDate dueDate);
 
+	/**
+	 * Counts orders by customer name (case-insensitive).
+	 *
+	 * @param searchQuery the customer name filter
+	 * @return count of matching orders
+	 */
 	long countByCustomerFullNameContainingIgnoreCase(String searchQuery);
 
+	/**
+	 * Counts orders by customer name and due date after the specified date.
+	 *
+	 * @param searchQuery the customer name filter
+	 * @param dueDate     the due date filter
+	 * @return count of matching orders
+	 */
 	long countByCustomerFullNameContainingIgnoreCaseAndDueDateAfter(String searchQuery, LocalDate dueDate);
 
 	long countByDueDate(LocalDate dueDate);

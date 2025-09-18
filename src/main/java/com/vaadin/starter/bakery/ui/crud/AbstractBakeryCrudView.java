@@ -29,12 +29,32 @@ public abstract class AbstractBakeryCrudView<E extends AbstractEntity> extends V
 
     private final Crud<E> crud;
 
+    /**
+     * Returns the base page path for navigation.
+     * @return base page path
+     */
     protected abstract String getBasePage();
 
+    /**
+     * Configures the grid for the CRUD view.
+     * @param grid the grid to configure
+     */
     protected abstract void setupGrid(Grid<E> grid);
 
+    /**
+     * Creates a new item for the CRUD view.
+     * @return new entity instance
+     */
     protected abstract E createItem();
 
+    /**
+     * Constructs the CRUD view with the given parameters.
+     * @param beanType the entity class
+     * @param service the CRUD service
+     * @param grid the grid component
+     * @param editor the CRUD editor
+     * @param currentUser the current user
+     */
     public AbstractBakeryCrudView(Class<E> beanType, FilterableCrudService<E> service,
                                   Grid<E> grid, CrudEditor<E> editor, CurrentUser currentUser) {
         setHeightFull();

@@ -23,6 +23,12 @@ public class PickupLocationService implements FilterableCrudService<PickupLocati
 		this.pickupLocationRepository = pickupLocationRepository;
 	}
 
+	/**
+	 * Finds pickup locations matching the given filter or returns all if no filter is provided.
+	 * @param filter optional filter string
+	 * @param pageable pagination information
+	 * @return page of matching pickup locations
+	 */
 	public Page<PickupLocation> findAnyMatching(Optional<String> filter, Pageable pageable) {
 		if (filter.isPresent()) {
 			String repositoryFilter = "%" + filter.get() + "%";
@@ -32,6 +38,11 @@ public class PickupLocationService implements FilterableCrudService<PickupLocati
 		}
 	}
 
+	/**
+	 * Counts pickup locations matching the given filter or returns total count if no filter is provided.
+	 * @param filter optional filter string
+	 * @return count of matching pickup locations
+	 */
 	public long countAnyMatching(Optional<String> filter) {
 		if (filter.isPresent()) {
 			String repositoryFilter = "%" + filter.get() + "%";
@@ -41,10 +52,18 @@ public class PickupLocationService implements FilterableCrudService<PickupLocati
 		}
 	}
 
+	/**
+	 * Returns the default pickup location.
+	 * @return default pickup location
+	 */
 	public PickupLocation getDefault() {
 		return findAnyMatching(Optional.empty(), PageRequest.of(0, 1)).iterator().next();
 	}
 
+	/**
+	 * Returns the pickup location repository instance.
+	 * @return pickup location repository
+	 */
 	@Override
 	public JpaRepository<PickupLocation, Long> getRepository() {
 		return pickupLocationRepository;
