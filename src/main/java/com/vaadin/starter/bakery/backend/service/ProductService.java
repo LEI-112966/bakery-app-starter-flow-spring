@@ -23,6 +23,12 @@ public class ProductService implements FilterableCrudService<Product> {
 		this.productRepository = productRepository;
 	}
 
+	/**
+	 * Finds products matching the given filter or returns all products if no filter is provided.
+	 * @param filter optional filter string
+	 * @param pageable pagination information
+	 * @return page of matching products
+	 */
 	@Override
 	public Page<Product> findAnyMatching(Optional<String> filter, Pageable pageable) {
 		if (filter.isPresent()) {
@@ -33,6 +39,11 @@ public class ProductService implements FilterableCrudService<Product> {
 		}
 	}
 
+	/**
+	 * Counts products matching the given filter or returns total count if no filter is provided.
+	 * @param filter optional filter string
+	 * @return count of matching products
+	 */
 	@Override
 	public long countAnyMatching(Optional<String> filter) {
 		if (filter.isPresent()) {
@@ -43,6 +54,11 @@ public class ProductService implements FilterableCrudService<Product> {
 		}
 	}
 
+	/**
+	 * Finds all products for the given pageable.
+	 * @param pageable pagination information
+	 * @return page of products
+	 */
 	public Page<Product> find(Pageable pageable) {
 		return productRepository.findBy(pageable);
 	}

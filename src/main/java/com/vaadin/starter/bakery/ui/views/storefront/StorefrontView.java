@@ -36,6 +36,14 @@ import com.vaadin.starter.bakery.ui.views.orderedit.OrderEditor;
 import static com.vaadin.starter.bakery.ui.utils.BakeryConst.EDIT_SEGMENT;
 import static com.vaadin.starter.bakery.ui.utils.BakeryConst.ORDER_ID;
 
+/**
+ * Main view for the Storefront page in the Bakery application.
+ * <p>
+ * Displays and manages orders, search functionality, and navigation.
+ * </p>
+ *
+ * @author GitHub Copilot
+ */
 @Tag("storefront-view")
 @JsModule("./src/views/storefront/storefront-view.js")
 @Route(value = BakeryConst.PAGE_STOREFRONT_ORDER_TEMPLATE, layout = MainView.class)
@@ -46,6 +54,9 @@ import static com.vaadin.starter.bakery.ui.utils.BakeryConst.ORDER_ID;
 public class StorefrontView extends LitTemplate
 		implements HasLogger, BeforeEnterObserver, EntityView<Order> {
 
+	/**
+	 * Search bar component for filtering orders.
+	 */
 	@Id("search")
 	private SearchBar searchBar;
 

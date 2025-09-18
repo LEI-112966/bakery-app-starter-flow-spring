@@ -28,6 +28,12 @@ public class CrudEntityPresenter<E extends AbstractEntity>	implements HasLogger 
 		this.view = view;
 	}
 
+	/**
+	 * Deletes the given entity, calling onSuccess or onFail depending on the result.
+	 * @param entity the entity to delete
+	 * @param onSuccess callback if deletion succeeds
+	 * @param onFail callback if deletion fails
+	 */
 	public void delete(E entity, Consumer<E> onSuccess, Consumer<E> onFail) {
 		if (executeOperation(() -> crudService.delete(currentUser.getUser(), entity))) {
 			onSuccess.accept(entity);
@@ -36,6 +42,12 @@ public class CrudEntityPresenter<E extends AbstractEntity>	implements HasLogger 
 		}
 	}
 
+	/**
+	 * Saves the given entity, calling onSuccess or onFail depending on the result.
+	 * @param entity the entity to save
+	 * @param onSuccess callback if save succeeds
+	 * @param onFail callback if save fails
+	 */
 	public void save(E entity, Consumer<E> onSuccess, Consumer<E> onFail) {
 		if (executeOperation(() -> saveEntity(entity))) {
 			onSuccess.accept(entity);
@@ -44,6 +56,11 @@ public class CrudEntityPresenter<E extends AbstractEntity>	implements HasLogger 
 		}
 	}
 
+	/**
+	 * Executes the given operation and returns true if successful, false otherwise.
+	 * @param operation the operation to execute
+	 * @return true if successful, false otherwise
+	 */
 	private boolean executeOperation(Runnable operation) {
 		try {
 			operation.run();

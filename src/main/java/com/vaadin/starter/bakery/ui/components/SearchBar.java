@@ -29,6 +29,9 @@ public class SearchBar extends LitTemplate {
 	@Id("action")
 	private Button actionButton;
 
+	/**
+	 * Constructs a SearchBar component with filter and clear functionality.
+	 */
 	public SearchBar() {
 		textField.setValueChangeMode(ValueChangeMode.EAGER);
 
@@ -43,6 +46,10 @@ public class SearchBar extends LitTemplate {
 		getElement().addPropertyChangeListener("checkboxChecked", e -> fireEvent(new FilterChanged(this, false)));
 	}
 
+	/**
+	 * Returns the current filter value from the text field.
+	 * @return filter string
+	 */
 	public String getFilter() {
 		return textField.getValue();
 	}

@@ -16,12 +16,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 /**
- * Configures spring security, doing the following:
- * <li>Bypass security checks for static resources,</li>
- * <li>Restrict access to the application, allowing only logged in users,</li>
- * <li>Set up the login form,</li>
- * <li>Configures the {@link UserDetailsServiceImpl}.</li>
- * 
+ * Configures Spring Security for the Bakery application.
+ * <p>
+ * This configuration:
+ * <ul>
+ *   <li>Bypasses security checks for static resources</li>
+ *   <li>Restricts access to the application, allowing only logged-in users</li>
+ *   <li>Sets up the login form</li>
+ *   <li>Configures the {@link UserDetailsServiceImpl}</li>
+ * </ul>
+ *
+ * @author GitHub Copilot
  */
 @EnableWebSecurity
 @Configuration
@@ -29,12 +34,20 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
 
 	/**
 	 * The password encoder to use when encrypting passwords.
+	 *
+	 * @return a BCrypt password encoder
 	 */
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 
+	/**
+	 * Provides the current user from the security context.
+	 *
+	 * @param userRepository the user repository
+	 * @return the current user
+	 */
 	@Bean
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public CurrentUser currentUser(UserRepository userRepository) {
@@ -44,7 +57,10 @@ public class SecurityConfiguration extends VaadinWebSecurityConfigurerAdapter {
 	}	
 
 	/**
-	 * Require login to access internal pages and configure login form.
+	 * Requires login to access internal pages and configures the login form.
+	 *
+	 * @param http the HTTP security configuration
+	 * @throws Exception if an error occurs
 	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {

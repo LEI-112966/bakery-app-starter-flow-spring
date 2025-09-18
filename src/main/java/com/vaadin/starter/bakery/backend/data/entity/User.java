@@ -38,12 +38,18 @@ public class User extends AbstractEntity {
 
 	private boolean locked = false;
 
+	/**
+	 * Prepares user data before persisting or updating by converting email to lowercase.
+	 */
 	@PrePersist
 	@PreUpdate
 	private void prepareData(){
 		this.email = email == null ? null : email.toLowerCase();
 	}
 
+	/**
+	 * Constructs an empty User instance.
+	 */
 	public User() {
 		// An empty constructor is needed for all beans
 	}

@@ -18,18 +18,45 @@ import com.vaadin.starter.bakery.backend.data.entity.OrderItem;
 import com.vaadin.starter.bakery.backend.data.entity.Product;
 import com.vaadin.starter.bakery.ui.views.storefront.events.TotalPriceChangeEvent;
 
+/**
+ * Editor de itens de pedido para a tela de edição de pedidos.
+ * <p>
+ * Permite adicionar, remover e editar itens de um pedido, além de calcular o preço total.
+ * </p>
+ *
+ * @author GitHub Copilot
+ */
 public class OrderItemsEditor extends Div implements HasValueAndElement<ComponentValueChangeEvent<OrderItemsEditor,List<OrderItem>>, List<OrderItem>> {
 
+	/**
+	 * Elemento vazio para adicionar novos itens.
+	 */
 	private OrderItemEditor empty;
 
+	/**
+	 * Provedor de dados de produtos.
+	 */
 	private DataProvider<Product, String> productDataProvider;
 
+	/**
+	 * Preço total dos itens.
+	 */
 	private int totalPrice = 0;
 
+	/**
+	 * Indica se houve alterações.
+	 */
 	private boolean hasChanges = false;
 
+	/**
+	 * Suporte interno para campo de valor.
+	 */
 	private final AbstractFieldSupport<OrderItemsEditor,List<OrderItem>> fieldSupport;
 	
+	/**
+	 * Construtor do editor de itens de pedido.
+	 * @param productDataProvider provedor de dados de produtos
+	 */
 	public OrderItemsEditor(DataProvider<Product, String> productDataProvider) {
 		this.productDataProvider = productDataProvider;
 		this.fieldSupport = new AbstractFieldSupport<>(this, Collections.emptyList(),

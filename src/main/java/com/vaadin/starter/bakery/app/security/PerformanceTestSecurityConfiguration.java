@@ -21,13 +21,24 @@ import com.vaadin.starter.bakery.backend.data.Role;
 
 
 /**
- * Allows accessing all views without login for performance testing.
+ * Security configuration for performance testing.
+ * <p>
+ * Allows accessing all views without login when the 'performance-test' profile is active.
+ * </p>
+ *
+ * @author GitHub Copilot
  */
 @Configuration
 @Order(1)
 @Profile("performance-test")
 public class PerformanceTestSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+	/**
+	 * Configures HTTP security to allow all requests without authentication.
+	 *
+	 * @param http the HTTP security configuration
+	 * @throws Exception if an error occurs
+	 */
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		// Not using Spring CSRF here to be able to use plain HTML for the login page

@@ -12,32 +12,68 @@ import java.util.function.Predicate;
 import com.vaadin.starter.bakery.backend.data.entity.Order;
 import com.vaadin.starter.bakery.ui.views.storefront.beans.OrderCardHeader;
 
+/**
+ * Generates headers for order cards in the Storefront view.
+ * <p>
+ * Responsible for grouping orders and providing header information for visual separation.
+ * </p>
+ *
+ * @author GitHub Copilot
+ */
 public class OrderCardHeaderGenerator {
 
+	/**
+	 * Wrapper for header information and matching logic.
+	 */
 	private class HeaderWrapper {
 		private Predicate<LocalDate> matcher;
-
 		private OrderCardHeader header;
-
 		private Long selected;
 
+		/**
+		 * Constructs a HeaderWrapper with a matcher and header.
+		 *
+		 * @param matcher predicate to match dates
+		 * @param header  header information
+		 */
 		public HeaderWrapper(Predicate<LocalDate> matcher, OrderCardHeader header) {
 			this.matcher = matcher;
 			this.header = header;
 		}
 
+		/**
+		 * Checks if the given date matches the header.
+		 *
+		 * @param date the date to check
+		 * @return true if matches, false otherwise
+		 */
 		public boolean matches(LocalDate date) {
 			return matcher.test(date);
 		}
 
+		/**
+		 * Gets the selected order ID.
+		 *
+		 * @return selected order ID
+		 */
 		public Long getSelected() {
 			return selected;
 		}
 
+		/**
+		 * Sets the selected order ID.
+		 *
+		 * @param selected order ID
+		 */
 		public void setSelected(Long selected) {
 			this.selected = selected;
 		}
 
+		/**
+		 * Gets the header information.
+		 *
+		 * @return header information
+		 */
 		public OrderCardHeader getHeader() {
 			return header;
 		}

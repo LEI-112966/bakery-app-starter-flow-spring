@@ -1,5 +1,5 @@
 /**
- *
+ * Factory for creating presenter beans for CRUD operations.
  */
 package com.vaadin.starter.bakery.ui.crud;
 
@@ -16,6 +16,12 @@ import com.vaadin.starter.bakery.ui.views.storefront.StorefrontView;
 @Configuration
 public class PresenterFactory {
 
+	/**
+	 * Creates a prototype-scoped EntityPresenter for Order and StorefrontView.
+	 * @param crudService the order service
+	 * @param currentUser the current user
+	 * @return EntityPresenter instance
+	 */
 	@Bean
 	@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
 	public EntityPresenter<Order, StorefrontView> orderEntityPresenter(OrderService crudService, CurrentUser currentUser) {
