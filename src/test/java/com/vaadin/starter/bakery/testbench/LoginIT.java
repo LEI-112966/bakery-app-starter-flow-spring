@@ -9,8 +9,14 @@ import com.vaadin.starter.bakery.testbench.elements.ui.DashboardViewElement;
 import com.vaadin.starter.bakery.testbench.elements.ui.LoginViewElement;
 import com.vaadin.starter.bakery.testbench.elements.ui.StorefrontViewElement;
 
+/**
+ * Integration tests for login and logout functionality.
+ */
 public class LoginIT extends AbstractIT<LoginViewElement> {
 
+	/**
+	 * Tests that login works with valid credentials.
+	 */
 	@Test
 	public void loginWorks() {
 		LoginViewElement loginView = openLoginView();
@@ -18,6 +24,9 @@ public class LoginIT extends AbstractIT<LoginViewElement> {
 		loginView.login("barista@vaadin.com", "barista");
 	}
 
+	/**
+	 * Tests that logout works and redirects to login page.
+	 */
 	@Test
 	public void logout() {
 		LoginViewElement loginView = openLoginView();
@@ -26,6 +35,9 @@ public class LoginIT extends AbstractIT<LoginViewElement> {
 		Assert.assertTrue(getDriver().getCurrentUrl().endsWith("login"));
 	}
 
+	/**
+	 * Tests login to a non-default URL and verifies dashboard access.
+	 */
 	@Test
 	public void loginToNotDefaultUrl() {
 		LoginViewElement loginView = openLoginView(getDriver(), APP_URL + "dashboard");
@@ -33,6 +45,9 @@ public class LoginIT extends AbstractIT<LoginViewElement> {
 		Assert.assertNotNull(dashboard);
 	}
 
+	/**
+	 * Tests that navigating to /login after login redirects to storefront.
+	 */
 	@Test
 	public void openLoginAfterLoggedIn() {
 		loginToNotDefaultUrl();
@@ -42,6 +57,10 @@ public class LoginIT extends AbstractIT<LoginViewElement> {
 		Assert.assertTrue($(LoginViewElement.class).all().isEmpty());
 	}
 
+	/**
+	 * Opens the Login view.
+	 * @return LoginViewElement instance
+	 */
 	@Override
 	protected LoginViewElement openView() {
 		return openLoginView();

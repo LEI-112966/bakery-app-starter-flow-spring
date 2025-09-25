@@ -12,16 +12,30 @@ import com.vaadin.flow.component.textfield.testbench.TextFieldElement;
 import com.vaadin.starter.bakery.testbench.elements.ui.ProductsViewElement;
 import com.vaadin.starter.bakery.testbench.elements.ui.StorefrontViewElement;
 
+/**
+ * Integration tests for the Products view, focusing on product management features.
+ */
 public class ProductsViewIT extends AbstractIT<ProductsViewElement> {
 
+	/**
+	 * Random instance for generating unique test data.
+	 */
 	private static Random r = new Random();
 
+	/**
+	 * Opens the Products view after logging in as admin.
+	 *
+	 * @return ProductsViewElement instance
+	 */
 	@Override
 	protected ProductsViewElement openView() {
 		StorefrontViewElement storefront = openLoginView().login("admin@vaadin.com", "admin");
 		return storefront.getMenu().navigateToProducts();
 	}
 
+	/**
+	 * Tests editing a product twice and verifies editor and grid behavior.
+	 */
 	@Test
 	public void editProductTwice() {
 		ProductsViewElement productsPage = openView();

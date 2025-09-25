@@ -15,7 +15,16 @@ import com.vaadin.testbench.TestBenchDriverProxy;
 import com.vaadin.testbench.TestBenchElement;
 import com.vaadin.testbench.parallel.ParallelTest;
 
+/**
+ * Abstract base class for integration tests using TestBench.
+ * Provides setup and utility methods for browser-based UI tests.
+ *
+ * @param <E> the type of TestBenchElement for the view under test
+ */
 public abstract class AbstractIT<E extends TestBenchElement> extends ParallelTest {
+	/**
+	 * The base URL of the application under test.
+	 */
 	public String APP_URL = "http://localhost:8080/";
 
 	static {
@@ -23,9 +32,16 @@ public abstract class AbstractIT<E extends TestBenchElement> extends ParallelTes
 		BakeryConst.NOTIFICATION_DURATION = 10000;
 	}
 
+	/**
+	 * Rule for taking screenshots on test failure.
+	 */
 	@Rule
 	public ScreenshotOnFailureRule screenshotOnFailure = new ScreenshotOnFailureRule(this, true);
 
+	/**
+	 * Sets up the test environment, including browser configuration.
+	 * @throws Exception if setup fails
+	 */
 	@Override
 	public void setup() throws Exception {
 		if (getDesiredCapabilities().getBrowserName().equals(Browser.CHROME.browserName())
@@ -41,11 +57,19 @@ public abstract class AbstractIT<E extends TestBenchElement> extends ParallelTes
 		}
 	}
 
+	/**
+	 * Returns the TestBench WebDriver proxy.
+	 * @return TestBenchDriverProxy instance
+	 */
 	@Override
 	public TestBenchDriverProxy getDriver() {
 		return (TestBenchDriverProxy) super.getDriver();
 	}
 
+	/**
+	 * Opens the Login view using the current driver and app URL.
+	 * @return LoginViewElement instance
+	 */
 	protected LoginViewElement openLoginView() {
 		return openLoginView(getDriver(), APP_URL);
 	}

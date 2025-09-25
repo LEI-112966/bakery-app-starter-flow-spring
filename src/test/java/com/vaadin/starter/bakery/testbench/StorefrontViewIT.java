@@ -18,11 +18,18 @@ import com.vaadin.starter.bakery.testbench.elements.ui.UsersViewElement;
 
 public class StorefrontViewIT extends AbstractIT<StorefrontViewElement> {
 
+	/**
+	 * Opens the Storefront view after logging in as admin.
+	 * @return StorefrontViewElement instance
+	 */
 	@Override
 	protected StorefrontViewElement openView() {
 		return openLoginView().login("admin@vaadin.com", "admin");
 	}
 
+	/**
+	 * Tests editing an order and verifies notification and data update.
+	 */
 	@Test
 	public void editOrder() {
 		StorefrontViewElement storefrontPage = openView();
