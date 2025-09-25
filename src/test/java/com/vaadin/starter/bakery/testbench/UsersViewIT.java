@@ -12,16 +12,30 @@ import com.vaadin.starter.bakery.testbench.elements.ui.StorefrontViewElement;
 import com.vaadin.starter.bakery.testbench.elements.ui.UsersViewElement;
 import com.vaadin.testbench.TestBenchElement;
 
+/**
+ * Integration tests for the Users view, focusing on user management features.
+ */
 public class UsersViewIT extends AbstractIT<UsersViewElement> {
 
+	/**
+	 * Random instance for generating unique test data.
+	 */
 	private static Random r = new Random();
 
+	/**
+	 * Opens the Users view after logging in as admin.
+	 *
+	 * @return UsersViewElement instance
+	 */
 	@Override
 	protected UsersViewElement openView() {
 		StorefrontViewElement storefront = openLoginView().login("admin@vaadin.com", "admin");
 		return storefront.getMenu().navigateToUsers();
 	}
 
+	/**
+	 * Tests updating a user's password and verifies editor behavior.
+	 */
 	@Test
 	public void updatePassword() {
 		UsersViewElement usersView = openView();
